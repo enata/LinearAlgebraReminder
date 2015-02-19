@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinearAlgebraReminder.Utili
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinearAlgebraReminder.Tests", "LinearAlgebraReminder.Tests\LinearAlgebraReminder.Tests.csproj", "{58815BDB-8CB8-4E4F-AC9B-FF5ADE340D4D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoliticsSample", "PoliticsSample\PoliticsSample.csproj", "{154F9A4F-4609-4577-A509-AB5C230A4E90}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{58815BDB-8CB8-4E4F-AC9B-FF5ADE340D4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58815BDB-8CB8-4E4F-AC9B-FF5ADE340D4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58815BDB-8CB8-4E4F-AC9B-FF5ADE340D4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{154F9A4F-4609-4577-A509-AB5C230A4E90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{154F9A4F-4609-4577-A509-AB5C230A4E90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{154F9A4F-4609-4577-A509-AB5C230A4E90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{154F9A4F-4609-4577-A509-AB5C230A4E90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
