@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
+using LinearAlgebraReminder;
 
 namespace PoliticsSample
 {
@@ -15,6 +16,46 @@ namespace PoliticsSample
         static void Main()
         {
             
+        }
+
+        private static Dictionary<string, IVector> GetVotingDictionary(IEnumerable<VotingResults> votings)
+        {
+            if(votings == null)
+                throw new ArgumentNullException("votings");
+
+            var result = new Dictionary<string, IVector>();
+            var enumeratedVotings = votings as IList<VotingResults> ?? votings.ToList();
+            if (!enumeratedVotings.Any())
+                return result;
+
+            var deputatsVotingsLists = enumeratedVotings.First()
+                .ResultsByDeputy.ToDictionary(voting => voting.Code, voting => new List<int>(enumeratedVotings.Count));
+            var votingDictionaries = enumeratedVotings.Select(BuildVotingDictionary);
+            foreach (var votingResult in votingDictionaries)
+            {
+                foreach (var key in deputatsVotingsLists.Keys)
+                {
+                    int deputatsVote = 0;
+                    if (votingResult.ContainsKey(key))
+                        deputatsVote = votingResult[key];
+                    deputatsVotingsLists[key].Add(deputatsVote);
+                }
+            }
+            return result.ToDictionary(pair => pair.Key, pair => (IVector) new Vector(pair.Value));
+        }
+
+        private static Dictionary<string, int> BuildVotingDictionary(VotingResults voting)
+        {
+            var result = voting.ResultsByDeputy.ToDictionary(v => v.Code, v =>
+            {
+                int decision = 0;
+                if (v.Result == "for")
+                    decision = 1;
+                else if (v.Result == "against")
+                    decision = -1;
+                return decision;
+            });
+            return result;
         }
 
         private static void UpdateAll(int period, int votingsLimit)
@@ -56,7 +97,7 @@ namespace PoliticsSample
 
         private static void UpdateVotingData(int period)
         {
-            var votings = DataLoader.UpdateVotingSearchData(3).Result;
+            var votings = DataLoader.UpdateVotingSearchData(period).Result;
             var xsSubmit = new XmlSerializer(typeof(VotingSearch));
             using (var sww = new StreamWriter(VotingsFileName))
             {
